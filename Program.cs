@@ -1,34 +1,58 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TodoAppApi1.Data;
 using System.Text.Json.Serialization;
+using TodoAppApi1.Controllers;
 
-var builder = WebApplication.CreateBuilder(args);//create builder (setupDI & app function)
-//add service to the container
-builder.Services.AddDbContext<ApiContext>
-(opt=> opt.UseInMemoryDatabase("TodoAppApi"));//setting name for todoapp database
-builder.Services.AddControllers() // controller enum -> string 
+var builder = WebApplication.CreateBuilder(args);
+
+// Thêm tất cả services TRƯỚC KHI builder.Build()
+builder.Services.AddTransient<TodoListController>();
+
+builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
         options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
     });
 
-//configuring Swagger/OpenApi
-builder.Services.AddEndpointsApiExplorer();
-
-builder.Services.AddSwaggerGen();
-//build app, run pipeline
-var app = builder.Build();
-//run swagger as dev mode
-if (app.Environment.IsDevelopment())
+builder.Services.AddDbContext<ApiContext>(options =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-//middleware
-app.UseHttpsRedirection(); // Redirect HTTP sang HTTPS
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.EnableSensitiveDataLogging();
+});
 
-app.UseAuthorization();// Dùng nếu có gắn [Authorize] vào Controller
+// Thêm CORS ở đây (trước Build())
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", builder =>
+    {
+        builder.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
 
-app.MapControllers();// Map các Controller đã tạo để xử lý route
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+// Cho phép phục vụ file tĩnh (wwwroot)
 
-app.Run();
+// Build ứng dụng
+var app = builder.Build();
+
+// Middleware pipeline
+app.UseHttpsRedirection();
+app.UseAuthorization();
+app.MapControllers();
+app.UseStaticFiles();
+app.UseRouting();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
+
+// Route mặc định trả về file index.html
+app.MapFallbackToFile("index.html");
+// Sử dụng CORS (sau Build() nhưng trước Run())
+app.UseCors("AllowAll");
+
+app.Run("http://localhost:4000");

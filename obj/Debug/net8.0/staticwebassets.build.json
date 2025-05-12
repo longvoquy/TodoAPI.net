@@ -1,11 +1,58 @@
 {
   "Version": 1,
-  "Hash": "IzaMNf6VfFl+zzwyIQ1fmfUafB82Ml6J4WkxQ0W4U+o=",
+  "Hash": "lS6BMizuHMCDv3KbRPC2loo3Nxq91El5aRECM3AhETQ=",
   "Source": "TodoAppApi1",
   "BasePath": "_content/TodoAppApi1",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": []
+  "DiscoveryPatterns": [
+    {
+      "Name": "TodoAppApi1\\wwwroot",
+      "Source": "TodoAppApi1",
+      "ContentRoot": "E:\\Savvycom\\TodoAppApi1\\wwwroot\\",
+      "BasePath": "_content/TodoAppApi1",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "E:\\Savvycom\\TodoAppApi1\\wwwroot\\app.js",
+      "SourceId": "TodoAppApi1",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\Savvycom\\TodoAppApi1\\wwwroot\\",
+      "BasePath": "_content/TodoAppApi1",
+      "RelativePath": "app.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\app.js"
+    },
+    {
+      "Identity": "E:\\Savvycom\\TodoAppApi1\\wwwroot\\index.html",
+      "SourceId": "TodoAppApi1",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\Savvycom\\TodoAppApi1\\wwwroot\\",
+      "BasePath": "_content/TodoAppApi1",
+      "RelativePath": "index.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\index.html"
+    }
+  ]
 }
