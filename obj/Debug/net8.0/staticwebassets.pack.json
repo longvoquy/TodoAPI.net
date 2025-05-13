@@ -1,0 +1,25 @@
+{
+  "Files": [
+    {
+      "Id": "E:\\Savvycom\\TodoAppApi1\\wwwroot\\app.js",
+      "PackagePath": "staticwebassets\\app.js"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.TodoAppApi1.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.TodoAppApi1.props",
+      "PackagePath": "build\\TodoAppApi1.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.TodoAppApi1.props",
+      "PackagePath": "buildMultiTargeting\\TodoAppApi1.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.TodoAppApi1.props",
+      "PackagePath": "buildTransitive\\TodoAppApi1.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
