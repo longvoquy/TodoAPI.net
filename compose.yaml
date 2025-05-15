@@ -1,0 +1,36 @@
+﻿version: '3.4'
+
+services:
+  webapi:
+    container_name: todo-webapi
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:8080"
+    depends_on:
+      - db
+    environment:
+      - ConnectionStrings__DefaultConnection=Host=db;Database=TodoDb;Username=postgres;Password=@longvo360;Port=5432
+    networks:
+      - todo-network
+
+  db:
+    image: postgres:13
+    container_name: todo-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: TodoDb
+      
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - todo-network
+
+networks:
+  todo-network:
+volumes:
+  postgres_data:

@@ -23,7 +23,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Application\Common\Models\" />
       <Folder Include="Infrastructure\Data\PostgreSQL\" />
       <Folder Include="wwwroot\" />
     </ItemGroup>
