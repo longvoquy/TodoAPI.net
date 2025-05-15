@@ -13,7 +13,7 @@ public class DeleteTodoListCommandHandler : IRequestHandler<DeleteTodoListComman
         _context = context;
     }
 
-    public async Task Handle(DeleteTodoListCommand request, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(DeleteTodoListCommand request, CancellationToken cancellationToken)
     {
         var entity = await _context.TodoLists
             .Include(t => t.Items) // if need to delete TodoItems follow
@@ -24,5 +24,6 @@ public class DeleteTodoListCommandHandler : IRequestHandler<DeleteTodoListComman
 
         _context.TodoLists.Remove(entity);
         await _context.SaveChangesAsync(cancellationToken);
+        return Unit.Value;
     }
 }
