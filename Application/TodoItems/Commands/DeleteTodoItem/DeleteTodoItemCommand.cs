@@ -1,9 +1,10 @@
-﻿namespace TodoAppApi1.Application.TodoItems.Commands.DeleteTodoItem;
-using MediatR;
+﻿using MediatR;
 using TodoAppApi1.Application.Common.Interface;
-public record DeleteTodoItemCommand(int Id) : IRequest;
 
-public class DeleteTodoItemCommandHandler : IRequestHandler<DeleteTodoItemCommand>
+namespace TodoAppApi1.Application.TodoItems.Commands.DeleteTodoItem;
+public record DeleteTodoItemCommand(int Id) : IRequest<Unit>;
+
+public class DeleteTodoItemCommandHandler : IRequestHandler<DeleteTodoItemCommand, Unit>
 {
     private readonly IApplicationDbContext _context;
 
@@ -12,15 +13,19 @@ public class DeleteTodoItemCommandHandler : IRequestHandler<DeleteTodoItemComman
         _context = context;
     }
 
-    public async Task Handle(DeleteTodoItemCommand request, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(DeleteTodoItemCommand request, CancellationToken cancellationToken)
     {
         var entity = await _context.TodoItems
             .FindAsync(new object[] { request.Id }, cancellationToken);
 
+        if (entity == null)
+        {
+            throw new KeyNotFoundException($"Todo item with Id {request.Id} not found.");
+        }
 
         _context.TodoItems.Remove(entity);
-   
-
         await _context.SaveChangesAsync(cancellationToken);
+
+        return Unit.Value;
     }
 }

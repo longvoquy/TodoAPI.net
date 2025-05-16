@@ -2,6 +2,7 @@
 using System.Text.Json.Serialization;
 using TodoAppApi1.AppHost.Controller;
 using MediatR;
+using MediatR.Registration;
 using TodoAppApi1.Application.Common.Interface;
 using TodoAppApi1.Application.TodoItems.Commands.CreateTodoItem;
 using TodoAppApi1.Application.TodoItems.Commands.DeleteTodoItem;
@@ -43,17 +44,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddScoped<IApplicationDbContext>(provider => 
     provider.GetRequiredService<ApplicationDbContext>());
-//builder.UseUrls("http://*:80");
-builder.Services.AddMediatR(cfg =>
-{
-    cfg.RegisterServicesFromAssemblyContaining<CreateTodoItemCommand>();
-    cfg.RegisterServicesFromAssemblyContaining<DeleteTodoItemCommand>();
-    cfg.RegisterServicesFromAssemblyContaining<UpdateTodoItemCommand>();
-    cfg.RegisterServicesFromAssemblyContaining<CreateTodoListCommand>();
-    cfg.RegisterServicesFromAssemblyContaining<UpdateTodoListCommand>();
-    cfg.RegisterServicesFromAssemblyContaining<DeleteTodoListCommand>();
-    
-});
+
+// If all handlers are in the same assembly
+builder.Services.AddMediatR(typeof(CreateTodoItemCommand).Assembly);
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 // Add CORS
 builder.Services.AddCors(options =>

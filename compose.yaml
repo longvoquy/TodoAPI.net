@@ -11,7 +11,7 @@ services:
     depends_on:
       - db
     environment:
-      - ConnectionStrings__DefaultConnection=Host=db;Database=TodoDb;Username=postgres;Password=@longvo360;Port=5432
+      - ConnectionStrings__DefaultConnection:Host=db;Database=TodoDb;Username=postgres;Password=@longvo360;Port=5432
     networks:
       - todo-network
 
